@@ -227,7 +227,7 @@ class Tokenizer():
         return(segment)
 
 def print_help():
-    print("MTUOC_tokenizer_zho_jieba.py A pseduo tokenizer for Chinese, usage:")
+    print("MTUOC_tokenizer_zho_pseudo.py A pseduo tokenizer for Chinese, usage:")
     print("Simple tokenization:")
     print('    cat "sentence to tokenize." | python3 MTUOC_tokenizer_zho_pseudo.py tokenize')
     print('    python3 MTUOC_tokenizer_zho_pseudo.py tokenize < file_to_tokenize > tokenized_file')

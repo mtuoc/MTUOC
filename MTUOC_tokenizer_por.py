@@ -1,6 +1,5 @@
-#    MTUOC_tokenizer_por 4.0
-#    Copyright (C) 2021  Antoni Oliver
-#    14/05/2021
+#    MTUOC_tokenizer_por 5.0
+#    Copyright (C) 2024  Antoni Oliver
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -23,7 +22,7 @@ import html
 QUOTES = (
 #adapted from: https://gist.github.com/goodmami/ quotes.py
     '\u0022'  # quotation mark (")
-#    '\u0027'  # apostrophe (')
+    '\u0027'  # apostrophe (')
     '\u00ab'  # left-pointing double-angle quotation mark
     '\u00bb'  # right-pointing double-angle quotation mark
     '\u2018'  # left single quotation mark
@@ -57,10 +56,21 @@ HYPENS = ('\u2010','\u2011','\u2012','\u2013')
 
 class Tokenizer():
     def __init__(self):
-        self.specialchars=["«","»","—","‘","’","“","”","„",]
+        self.specialchars=["¿","¡",]
+        self.specialchars.extend(QUOTES)
+        self.specialchars.extend(HYPENS)
         self.subs=['fá￭-￭la', 'fá￭-￭las', 'fá￭-￭lo', 'fá￭-￭los', 'fê￭-￭la', 'fê￭-￭las', 'fê￭-￭lo', 'fê￭-￭los', 'fi￭-￭la', 'fi￭-￭las', 'fi￭-￭lo', 'fi￭-￭los', 'pu￭-￭la', 'pu￭-￭las', 'pu￭-￭lo', 'pu￭-￭los', 'qui￭-￭la', 'qui￭-￭las', 'qui￭-￭lo', 'qui￭-￭los']
         self.re_num = re.compile(r'[\d\,\.]+')
-
+        self.abr=["cf.","e.g.","i.e.","vs.","av.","lrg.","pr.","trav.","estr.","lt.","rot.","cap.","fl.","num.","pgs.","eds.","séc.","ex.","nº.","no.","pg.","págs.","tab.","fig.","pág.","sec.","vol.","sr.","snr.","snrª.","snra.","srª.","sra.","srs.","pres.","secº.","secª.","dir.","dirª.","dira.","ab.","fr.","pe.","prof.","profª.","profa.","dr.","drª.","dra.","arq.","arqº.","arqu.","arqª.","arqa.","eng.","engº.","engo.","engª.","enga.","em.","emª.","ema.","exº.","exo.","exmº.","exmo.","exª.","exa.","exmª.","exma.","exs.","exos.","exmos.","exas.","exmas.","excª.","exca.","eciª.","ecia.","excia.","excas.","excias.","rev.","revª.","reva.","a.c.","aa.rr.","abrev.","adj.","adm.","admón.","afma.","afmas.","afmo.","afmos.","ag.","am.","ap.","apdo.","art.","arts.","arz.","arzbpo.","assn.","atte.","av.","avda.","bros.","bv.","cap.","caps.","cg.","cgo.","cia.","cit.","cl.","cm.","co.","col.","corp.","coorp.","cos.","cta.","cte.","ctra.","cts.","cía.","d.c.","dta.","dept.","depto.","dg.","dl.","dm.","doc.","docs.","dpt.","dpto.","dr.","dra.","dras.","dres.","dto.","dom.","dupdo.","ed.","eds.","ee.uu.","ej.","emma.","emmas.","emmo.","emmos.","entlo.","entpo.","esp.","etc.","ex.","excm.","excma.","excmas.","excmo.","excmos.","fasc.","fdo.","fig.","figs.","fol.","fra.","gb.","gral.","ha.","hnos.","hros.","hz.","ib.","ibid.","ibíd.","id.","ilm.","ilma.","ilmas.","ilmo.","ilmos.","iltre.","inc.","intr.","esq.","esqda.","esqdo.","jr.","kc.","kcal.","kg.","khz.","kl.","km.","kw.","lda.","ldo.","lib.","lim.","loc.","ltd.","ltda.","lám.","ma.","mg.","mhz.","min.","mons.","mr.","mrs.","ms.","mss.","mtro.","máx.","mín.","ntra.","ntro.","núm.","ob.","obpo.","op.","pd.","ph.","pje.","pl.","plc.","pm.","pp.","ppal.","pral.","prof.","prov.","pról.","ps.","pta.","ptas.","pte.","pts.","pza.","pág.","págs.","párr.","q.b.","rda.","rdo.","ref.","reg.","rel.","rev.","revda.","revdo.","rma.","rmo.","rte.","s.","sáb.","sdad.","sec.","secret.","seg.","sg.","sig.","smo.","sp.","sr.","sra.","sras.","sres.","srs.","srta.","ss.mm.","sta.","sto.","sust.","tech.","tel.","telf.","telef.","ten.","tfone.","tlf.","tít.","ud.","uds.","vda.","vdo.","vid.","vol.","vols.","vra.","vro.","vta.","íd.","ít.","mm.","mms.","ms.","pulg.","yda.","mi.","ha.","ac.","ml.","dl.","hl.","ac-pie.","oz.","qt.","gal.","pk.","bu.","cr.","crt.","tz.","pt.","mpa.","pa.","psi.","lb.","mmhg.","cmhg.","mhg.","mol.","mg.","gr.","grs.","kg.","qg.","qgs.","kgs.","mgr.","oz.","lb.","ton.","tm.","milgal.","lt.","lps.","gps.","gpm.","gph.","gpd.","mgd.","gal.","gpcd.","mph.","lbf.","yb.","zb.","eb.","pb.","tb.","gb.","mb.","kb.","wb.","cd.","rad.","sr.","hz.","lm.","lx.","nq.","gy.","sv.","abr.","a.c.","ago.","a.m.","aprox.","art.","att.","cap.","cont.","d.","d.c.","dez.","eds.","etc.","ex.","fev.","hab.","id.","inc.","jan.","jul.","jun.","l.cit.","loc.cit.","ltd.","mar.","min.","nov.","nro.","núm.","op.cit.","out.","p.ex.","pg.","prof.","p.s.","set.","sr.","sres.","ud.","uk.","vol.","vs."]
+        abr_aux=[]
+        for a in self.abr:
+            am1=a.capitalize()
+            am2=a.upper()
+            abr_aux.append(am1)
+            abr_aux.append(am2)
+        self.abr.extend(abr_aux)
+        self.setabr=set(self.abr)
+        self.abrsig=()
     def split_numbers(self,segment):
         xifres = re.findall(self.re_num,segment)
         for xifra in xifres:
@@ -100,46 +110,72 @@ class Tokenizer():
             if ef: tagmod=tagmod+"￭ "
             segment=segment.replace(tag,tagmod)
         return(segment) 
-
+    
+    def protect_abr(self,cadena):
+        setcadena=set(cadena.split(" "))
+        common=(self.setabr & setcadena)
+        self.abrsig=list(common)
+        for a in common:
+            amod=a+" "
+            apro=a.replace(".","&#46;")
+            cadena=cadena.replace(amod,apro)
+        sigles=re.findall(r'((\w\.){2,})',cadena)
+        for s in sigles:
+            a=s[0]
+            self.abrsig.append(a)
+            amod=a+" "
+            apro=a.replace(".","&#46;")
+            cadena=cadena.replace(amod,apro)
+        return(cadena)
+    
     def unprotect(self, cadena):
         cadena=cadena.replace("&#39;","'").replace("&#45;","-").replace("&#60;","<").replace("&#62;",">").replace("&#34;",'"').replace("&#61;","=").replace("&#32;","▁").replace("&#47;","/").replace("&#123;","{").replace("&#125;","}")
         return(cadena)
-
+    
+    def unprotect_tags(self, cadena):
+        cadena=cadena.replace("&#60;","<").replace("&#62;",">")
+        return(cadena)
+    
+    def unprotect_abr(self,cadena):
+        for a in self.abrsig:
+            amod=a+" "
+            apro=a.replace(".","&#46;")
+            cadena=cadena.replace(apro,amod)
+        return(cadena)
 
     def main_tokenizer(self,segment):
         segment=" "+segment+" "
         cadena=self.protect_tags(segment)
+        cadena=self.protect_abr(cadena)
         for s in self.subs:
             sA=s.replace("￭","")
             sB=s.replace("'","&#39;").replace("-","&#45;")
             if s.startswith("￭"):sB=" "+sB
             if s.endswith("￭"):sB=sB+" "
-            cadena=cadena.replace(sA,sB)
-            cadena=cadena.replace(sA.upper(),sB.upper())
+            cadena = re.sub(sA+r'\b', sB, cadena)
+            cadena = re.sub(r'\b'+sA, sB, cadena)
+            cadena = re.sub(sA.upper()+r'\b', sB.upper(), cadena)
+            cadena = re.sub(r'\b'+sA.upper(), sB.upper(), cadena)
         punt=list(string.punctuation)
         exceptions=["&",";","#"]
         for e in exceptions:
             punt.remove(e)
+        
         for p in punt:
-            pmod=p+" "
-            if cadena.find(pmod)==-1:
-                pmod2=p+"￭ "
-                cadena=cadena.replace(p,pmod2)
-            pmod=" "+p
-            if cadena.find(pmod)==-1:
-                pmod2=" ￭"+p
-                cadena=cadena.replace(p,pmod2)
-        cadena=self.unprotect(cadena)
-        for p in exceptions:
-            pmod=p+" "
-            if cadena.find(pmod)==-1:
-                pmod2=p+"￭ "
-                cadena=cadena.replace(p,pmod2)
-            pmod=" "+p
-            if cadena.find(pmod)==-1:
-                pmod2=" ￭"+p
-                cadena=cadena.replace(p,pmod2)
-                
+            ppre=" ￭"+p
+            ppost=p+"￭ "
+            try:
+                expr1="(\\S)\\"+p+"(\\s)"
+                expr2=r"\1"+ppre+r"\2"
+                cadena = re.sub(expr1,expr2, cadena)
+                expr1="(\\s)\\"+p+"(\\S)"
+                expr2=r"\1"+ppost+r"\2"
+                cadena = re.sub(expr1,expr2, cadena)
+            except:
+                pass
+        cadena=self.unprotect_tags(cadena)
+        cadena=self.unprotect_abr(cadena)
+        
         for p in self.specialchars:
             pmod=p+" "
             if cadena.find(pmod)>=-1:
@@ -149,14 +185,27 @@ class Tokenizer():
             if cadena.find(pmod)>=-1:
                 pmod2=" ￭"+p
                 cadena=cadena.replace(p,pmod2)
-                
-        return(cadena[1:-1])
+
+        cadena=self.unprotect(cadena)
         
+        for p in exceptions:
+            pmod=p+" "
+            if cadena.find(pmod)>=-1:
+                pmod2=p+"￭ "
+                cadena=cadena.replace(p,pmod2)
+            pmod=" "+p
+            if cadena.find(pmod)>=-1:
+                pmod2=" ￭"+p
+                cadena=cadena.replace(p,pmod2)    
+        
+        cadena=cadena.replace("▁"," ")
+        cadena=' '.join(cadena.split())   
         return(cadena)
 
     def tokenize(self,segment):
         tokenized=self.main_tokenizer(segment)
         tokenized=tokenized.replace("￭","")
+        tokenized=' '.join(tokenized.split()) 
         return(tokenized)
         
     def detokenize(self, segment):
@@ -187,10 +236,12 @@ class Tokenizer():
         segment=segment.replace(" ’","’")
         segment=segment.replace("“ ","“")
         segment=segment.replace(" ”","”")
+        segment=' '.join(segment.split()) 
         return(segment)
 
     def tokenize_j(self,segment):
         tokenized=self.main_tokenizer(segment)
+        tokenized=' '.join(tokenized.split()) 
         return(tokenized)
 
     def detokenize_j(self,segment):
@@ -198,11 +249,13 @@ class Tokenizer():
         segment=segment.replace("￭ ","")
         segment=segment.replace("￭","")
         detok=segment
+        detok=' '.join(detok.split()) 
         return(detok)
         
     def tokenize_jn(self,segment):
         tokenized=self.tokenize_j(segment)
         tokenized=self.split_numbers(tokenized)
+        tokenized=' '.join(tokenized.split()) 
         return(tokenized)
 
     def detokenize_jn(self,segment):
@@ -215,12 +268,14 @@ class Tokenizer():
         tokenized=tokenized.replace(" ￭","￭")
         tokenized=tokenized.replace(" "," ▁")
         tokenized=tokenized.replace("￭"," ")
+        tokenized=' '.join(tokenized.split()) 
         return(tokenized)
         
     def detokenize_s(self,segment):
         segment=segment.replace(" ","")
         segment=segment.replace("▁"," ")
         detok=segment
+        detok=' '.join(detok.split()) 
         return(detok)
 
     def tokenize_sn(self,segment):
@@ -230,6 +285,7 @@ class Tokenizer():
         tokenized=tokenized.replace(" ￭","￭")
         tokenized=tokenized.replace(" "," ▁")
         tokenized=tokenized.replace("￭"," ")
+        tokenized=' '.join(tokenized.split()) 
         return(tokenized)
 
     def detokenize_sn(self,segment):
@@ -237,10 +293,10 @@ class Tokenizer():
         return(segment)        
     
 def print_help():
-    print("MTUOC_tokenizer_por.py A tokenizer for Portuguese, usage:")
+    print("MTUOC_tokenizer_cat.py A tokenizer for Portuguese, usage:")
     print("Simple tokenization:")
     print('    cat "sentence to tokenize." | python3 MTUOC_tokenizer_por.py tokenize')
-    print('    python3 MTUOC_tokenizer_por.py tokenize < file_to_tokenize > tokenized_file')
+    print('    python3 MTUOC_tokenizer_cat.py tokenize < file_to_tokenize > tokenized_file')
     print()
     print("Simple detokenization:")
     print('    cat "sentence to tokenize." | python3 MTUOC_tokenizer_por.py detokenize')
@@ -291,5 +347,4 @@ if __name__ == "__main__":
             outsegment=tokenizer.detokenize_jn(line)
         
         print(outsegment)
-
         

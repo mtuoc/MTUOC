@@ -1,4 +1,4 @@
-#    MTUOC_tokenizer_cat 5.0
+#    MTUOC_tokenizer_glg 5.0
 #    Copyright (C) 2024  Antoni Oliver
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -59,9 +59,9 @@ class Tokenizer():
         self.specialchars=["¿","¡",]
         self.specialchars.extend(QUOTES)
         self.specialchars.extend(HYPENS)
-        self.subs=[]
+        self.subs=['lle￭-￭la', 'lle￭-￭las', 'lle￭-￭lo', 'lle￭-￭los', 'nó￭-￭las', 'nó￭-￭los', 'no￭-￭la', 'no￭-￭las', 'no￭-￭lo', 'no￭-￭los', 'vó￭-￭las', 'vó￭-￭los', 'vo￭-￭la', 'vo￭-￭las', 'vo￭-￭lo', 'vo￭-￭los']
         self.re_num = re.compile(r'[\d\,\.]+')
-        self.abr=["cм.","абл.","абс.","абх.","авар.","авг.","австр.","австрал.","авт.","агр.","адж.","адм.","адыг.","азерб.","акад.","акк.","акц.","алб.","алг.","алж.","алт.","алф.","альм.","альп.","амер.","анат.","анг.","англ.","ангол.","аннот.","антич.","ап.","апр.","арам.","аргент.","арифм.","арт.","архим.","архип.","асс.","ассир.","асср","астр.","ат.","атм.","афг.","афр.","б.","балк.","балт.","башк.","безв.","безл.","бельг.","библ.","биогр.","биол.","бирм.","бол.","болг.","буд.","бывш.","бюдж.","бюлл.","в.","вал.","вв.","в.д.","вдхр.","вед.","вел.","венг.","вкл.","вл.","внеш.","внутр.","вод. ст.","воен.","возв.","возд.","воскр.","вост.","вт.","вьетн.","г.","га.","гав.","газ.","гвин.","гвт.","гг.","ггц.","ген.","ген. л.","ген. м.","ген. п.","геогр.","геод.","геол.","геом.","герм.","г­жа.","гл.","гор.","гос.","госп.","гр.","град.","гражд.","греч.","груз.","губ.","гц.","гэв.","дб.","д. б. н.","д. в.","д. г.­м. н.","д. г. н.","деепр.","действ.","дек.","дер.","дж.","диак.","диал.","диам.","див.","диз.","д. и. н.","дир.","д. иск.","дисс.","дист.","дифф.","дкг.","дкл.","дкм.","дм.","д. м. н.","д. н.","д. о.","доб.","док.","докт.","долл.","доп.","доц.","д. п.","дптр.","др.","драм.","д. т. н.","дубл.","д. ф.­м. н.","д. ф. н.","д. х. н.","д. ч.","евр.","европ.","егип.","ед.","ед. ч.","ежедн.","ежемес.","еженед.","ефр.","ж.","ж. д.","жен.","женск.","жит.","журн.","зав.","зав. хоз.","загл.","зал.","зам.","заруб.","засл. арт.","з. д.","з.д.","зем.","зол.","игум.","иером.","им.","инд.","индонез.","иностр.","и. о.","и.о.","итал.","канд.","кв.","ква.","квт.","кг.","кгс.","кгц.","кд.","кдж.","кирг.","ккал.","кл.","км.","кмоль.","книжн.","коп.","корп.","кэв.","лаб.","лат.","латв.","лейт.","лит.","л.с.","м.","макс.","мат.","матем.","маш.","м­во.","мгц.","мдж.","мед.","мес.","мин.","мин­во.","митр.","мка.","мкал.","мкв.","мквт.","мкм.","мкмк.","мком.","мкпа.","мкр.","мкф.","мкюри.","мл.","млк.","млн.","млрд.","м.н.с.","мн.ч.","моск.","мпа.","м­р.","мс.","муж.","мужск.","мэв.","нем.","н.э.","обл.","пер.","пл.","пос.","пр.","р.","рис.","род.","св.","сокр.","ст.","ст.н.с.","стр.","с.ш.","т.","т.д.","т.е.","тел.","т.к.","т.н.","т.о.","тов.","т.п.","трлн.","т.с.","тыс.","ул.","ум.","фр.","франц.","ч.","чел."]
+        self.abr=["a.","aa.rr.","abr.","abrev.","a.c.","adj.","adm.","admdor.","admdora.","admtiu.","afma.","afmes.","afmo.","afms.","ag.","aj.","a.m.","am.","ap.","apmt.","aprox.","apt.","arq.","arqbs.","art.","arts.","assn.","assoc.","att.","av.","avda.","batx.","bibl.","bl.","bros.","butll.","bv.","ca.","cant.","cast.","cat.","cc.oo.","cf.","cg.","cgo.","cia.","cit.","cl.","cm.","co.","corp.","cró.","cta.","cte.","ctra.","cts.","d.","d.c.","dc.","dept.","des.","dg.","dir.","disp.","distr.","dj.","dl.","dm.","doc.","docs.","dpt.","dr.","dra.","dres.","drs.","ds.","dt.","dta.","dte.","dupdo.","dupl.","dv.","e.","ed.","ee.uu.","ej.","emm.","emma.","emmes.","emmo.","emms.","entl.","entlo.","entpo.","esc.","esgl.","esp.","esq.","etc.","ex.","excm.","excma.","excmes.","excms.","exp.","ext.","fac.","facs.","fasc.","fdo.","feb.","febr.","fig.","figs.","fol.","fra.","fres.","gen.","gns.","gov.","g.p.","gral.","ha.","hab.","hble.","hnos.","hosp.","hros.","hz.","ib.","ibid.","ibíd.","id.","íd.","il·lm.","il·lma.","il·ltre.","ilm.","ilma.","ilmes.","ilmo.","ilms.","iltre.","inc.","intr.","jr.","jul.","kc.","kcal.","kg.","khz.","kl.","km.","kw.","làm.","lda.","ldo.","lib.","lim.","llic.","loc.","ltd.","ltda.","màx.","mg.","mhz.","min.","mín.","mn.","mons.","mr.","mrs.","ms.","mss.","mtro.","nº.","nov.","nre.","nro.","ntra.","ntre.","ntro.","núm.","núms.","ob.","obpo.","oct.","op.","pàg.","par.","pça.","pd.","p.ex.","pg.","ph.","pl.","plc.","p.m.","pm.","pp.","ppal.","pral.","pres.","proc.","prof.","prov.","ps.","pta.","ptal.","ptas.","pte.","ptes.","ptge.","pts.","pza.","qualif.","rbla.","rda.","rdo.","ref.","reg.","rel.","rev.","revda.","revdo.","rma.","rmo.","rnd.","rte.","s.a.","sdad.","sec.","seg.","set.","sg.","sig.","sign.","s.l.","smo.","soc.","sr.","sra.","sras.","sres.","srs.","srta.","srtes.","ss.mm.","ssp.","st.","sta.","stm.","sto.","subsp.","sust.","tech.","tecnol.","tel.","telf.","ten.","tfon.","tlf.","trad.","u.","ud.","uds.","un.","urb.","vda.","vdo.","vé.","vè.","vid.","vol.","vra.","vro.","vs.","vta."]
         abr_aux=[]
         for a in self.abr:
             am1=a.capitalize()
@@ -293,14 +293,14 @@ class Tokenizer():
         return(segment)        
     
 def print_help():
-    print("MTUOC_tokenizer_cat.py A tokenizer for Russian, usage:")
+    print("MTUOC_tokenizer_cat.py A tokenizer for Galician, usage:")
     print("Simple tokenization:")
-    print('    cat "sentence to tokenize." | python3 MTUOC_tokenizer_rus.py tokenize')
-    print('    python3 MTUOC_tokenizer_rus.py tokenize < file_to_tokenize > tokenized_file')
+    print('    cat "sentence to tokenize." | python3 MTUOC_tokenizer_cat.py tokenize')
+    print('    python3 MTUOC_tokenizer_cat.py tokenize < file_to_tokenize > tokenized_file')
     print()
     print("Simple detokenization:")
     print('    cat "sentence to tokenize." | python3 MTUOC_tokenizer_cat.py detokenize')
-    print('    python3 MTUOC_tokenizer_rus.py detokenize < file_to_detokenize > detokenized_file')
+    print('    python3 MTUOC_tokenizer_cat.py detokenize < file_to_detokenize > detokenized_file')
     print()
     print("Advanced options:")
     print("    tokenization/detokenization with joiner marks (￭): tokenize_j / detokenize_j")
